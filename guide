@@ -1,0 +1,27 @@
+空间滤波程序使用说明：
+编写：王钰
+时间：2022.07.28
+邮箱：ywang@zhejianglab.com
+
+1、将同一编号的CRAFTS 19波束的数据导入（软链接至）一个文件夹
+   ln -s 原文件路径/文件名称  目标文件夹/
+   eg: 将Dec+2715中记录的第126个19波束宽带数据软链接至自己的目录
+       ln -s /data15/ZD2020_1_2/Dec+2715/20200213/*_W_0126* ~/Dec+2715/0126/
+	   
+2、配置config.py 文件
+	设置需要处理的频段f_process = [f_start,f_end]，f_start和f_end分别表示起止频段
+	设置结果保存的目录，例如：path2save = '/home/wangy/spatial_filter/results/0126/'
+	后续去基线的结果会存在path2save/baseline中，空间滤波的结果保存在path2save/clean中
+	
+3、设置需要保存的选项，在read_write.py文件中的out函数中
+	write_data_raw 和 plot_raw ：分别是保存和绘制原始数据
+	write_data_baseline 和 plot_baseline：分别是保存和绘制去基线后的数据
+	write_data_clean 和 plot_clean：分别是保存和绘制空间滤波后的数据
+	write_data_mask 和 plot_mask：分别是保存和绘制干扰标记后的数据
+	根据需要保存的数据对其进行注释即可。
+
+4、运行时cd到程序目录下输入命令：python main.py 目标文件夹/
+
+
+注意：目标文件夹下只能保存一组相同编号的数据，不然读取文件会出错
+
